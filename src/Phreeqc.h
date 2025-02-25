@@ -1,5 +1,7 @@
 #ifndef _INC_PHREEQC_H
 #define _INC_PHREEQC_H
+#include "Lua/LuaCore.hpp"
+#include <memory>
 #if defined(WIN32)
 #  if defined(PHREEQCI_GUI)
 #    ifndef WINVER
@@ -1659,6 +1661,8 @@ protected:
 
 	/* Basic */
 	PBasic* basic_interpreter;
+
+	std::unique_ptr<LuaCore> lua_instance;
 
 	double (*basic_callback_ptr) (double x1, double x2, const char* str, void* cookie);
 	void* basic_callback_cookie;
