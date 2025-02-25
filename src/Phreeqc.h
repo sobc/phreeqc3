@@ -1,5 +1,7 @@
 #ifndef _INC_PHREEQC_H
 #define _INC_PHREEQC_H
+#include "Lua/LuaCore.hpp"
+#include <memory>
 #if defined(WIN32)
 #  if defined(PHREEQCI_GUI)
 #    ifndef WINVER
@@ -1660,6 +1662,8 @@ protected:
 	/* Basic */
 	PBasic* basic_interpreter;
 
+	std::unique_ptr<LuaCore> lua_instance;
+
 	double (*basic_callback_ptr) (double x1, double x2, const char* str, void* cookie);
 	void* basic_callback_cookie;
 #ifdef IPHREEQC_NO_FORTRAN_MODULE
@@ -1852,6 +1856,14 @@ protected:
 public:
 	static const class const_iso iso_defaults[];
 	static const int count_iso_defaults;
+
+	/* lua/cb_funcs.cpp */
+public: 
+	double get_rate_m()const ;
+	double get_rate_time()const ;
+	double get_saturation_index(const char* name);
+	double get_activity(const char* name);
+
 };
 #endif /* _INC_PHREEQC_H */
 

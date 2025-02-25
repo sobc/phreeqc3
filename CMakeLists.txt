@@ -10,6 +10,10 @@ endif()
 
 include(GNUInstallDirs)
 
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
+
+find_package(Luajit REQUIRED)
+
 set(phreeqc_SOURCES
 src/ChartHandler.cpp
 src/ChartObject.cpp
@@ -145,6 +149,7 @@ src/tally.cpp
 src/tidy.cpp
 src/transport.cpp
 src/utilities.cpp
+src/Lua/LuaCore.cpp
 )
 
 option(PHRQC_USE_GMP "Use GNU Multiple Precision library" OFF)
@@ -259,6 +264,9 @@ endif()
 
 add_executable(phreeqc ${phreeqc_SOURCES})
 set_target_properties(phreeqc PROPERTIES DEBUG_POSTFIX "d")
+
+target_link_libraries(phreeqc PUBLIC ${LUAJIT_LIBRARY})
+target_include_directories(phreeqc PRIVATE ${LUAJIT_INCLUDE_DIR})
 
 target_compile_features(phreeqc PUBLIC cxx_std_11)
 
