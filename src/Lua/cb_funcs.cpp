@@ -10,4 +10,15 @@ double Phreeqc::get_saturation_index(const char *name) {
 
   return ret_val;
 }
+
+double Phreeqc::get_saturation_ratio(const char *name) {
+  return this->saturation_ratio(name);
+}
+
 double Phreeqc::get_activity(const char *name) { return this->activity(name); }
+
+double Phreeqc::get_temperature_kelvin() const { return this->tc_x + 273.15; }
+
+double Phreeqc::get_script_parm(std::size_t index) const {
+  return this->rate_p[index - 1];
+}

@@ -1862,7 +1862,11 @@ public:
 	double get_rate_m()const ;
 	double get_rate_time()const ;
 	double get_saturation_index(const char* name);
+	double get_saturation_ratio(const char* name);
 	double get_activity(const char* name);
+	double get_temperature_kelvin() const;
+	double get_script_parm(std::size_t index) const;
+	
 
 };
 #endif /* _INC_PHREEQC_H */
