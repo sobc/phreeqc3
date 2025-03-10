@@ -17,6 +17,8 @@ public:
 
   int parse_chunk(const std::string &script, const std::string &chunk_name);
 
+  double pop_value();
+
   const std::string Phreeqc_Lua_Expose_Name = "Pqc";
 
 private:

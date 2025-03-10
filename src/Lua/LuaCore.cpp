@@ -1,6 +1,7 @@
 #include "LuaInitializer.hpp"
 #include "NameDouble.h"
 
+#include <iostream>
 #include <lua.hpp>
 
 static int error_read_only(lua_State *L) {
@@ -41,11 +42,19 @@ int LuaCore::run(const std::string &chunk_name) {
 
 int LuaCore::parse_chunk(const std::string &script,
                          const std::string &chunk_name) {
-  int status = luaL_loadstring(this->L, script.c_str());
+  std::string in_script = script;
+  // remove leading ';' if present
+  if (script[0] == ';') {
+    in_script = script.substr(1);
+  }
+  int status = luaL_loadstring(this->L, in_script.c_str());
   if (status != LUA_OK) {
+    std::cout << lua_tostring(this->L, -1) << std::endl;
     return status;
   }
   lua_setglobal(this->L, chunk_name.c_str());
 
   return LUA_OK;
 }
+
+double LuaCore::pop_value() { return lua_tonumber(this->L, -1); }
