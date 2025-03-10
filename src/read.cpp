@@ -8615,8 +8615,8 @@ read_rates(void)
 	class rate *rate_ptr;
 	const char* next_char;
 	const char *opt_list[] = {
-		"start",				/* 0 */
-		"end"					/* 1 */
+		"start_script",				/* 0 */
+		"end_script"					/* 1 */
 	};
 	int count_opt_list = 2;
 
