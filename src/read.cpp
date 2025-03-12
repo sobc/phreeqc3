@@ -8688,7 +8688,7 @@ read_rates(void)
 				opt_save = OPT_1;
 				break;
 			}
-			rate_ptr->commands.append(";\0");
+			rate_ptr->commands.append("\n");
 			rate_ptr->commands.append(line);
 			opt_save = OPT_1;
 			break;
