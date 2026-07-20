@@ -2,6 +2,7 @@
 #include <assert.h>
 #include "Utils.h"
 #include "Phreeqc.h"
+#include "Lua/LuaCore.hpp"
 #include "phqalloc.h"
 #include "PBasic.h"
 #include "Temperature.h"

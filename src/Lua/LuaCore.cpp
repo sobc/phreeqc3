@@ -1,4 +1,5 @@
 #include "LuaInitializer.hpp"
+#include "LuaCore.hpp"
 #include "NameDouble.h"
 
 #include <iostream>

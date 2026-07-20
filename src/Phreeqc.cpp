@@ -1,4 +1,5 @@
 #include "Phreeqc.h"
+#include "Lua/LuaCore.hpp"
 #include <algorithm>			// std::replace
 
 #include "NameDouble.h"

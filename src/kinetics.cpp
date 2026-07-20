@@ -1,5 +1,6 @@
 #include "Utils.h"
 #include "Phreeqc.h"
+#include "Lua/LuaCore.hpp"
 #include "phqalloc.h"
 
 #include <iostream>

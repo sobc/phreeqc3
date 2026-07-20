@@ -1,6 +1,6 @@
 #ifndef _INC_PHREEQC_H
 #define _INC_PHREEQC_H
-#include "Lua/LuaCore.hpp"
+class LuaCore;
 #include <memory>
 #if defined(WIN32)
 #  if defined(PHREEQCI_GUI)
