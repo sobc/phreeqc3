@@ -3,8 +3,11 @@
 
 template <typename Func, typename... Args>
 int push_phreeqc_data(lua_State *L, Func rate_func, Args... args) {
-  auto phreeqc = static_cast<Phreeqc **>(lua_touserdata(L, 1));
-  lua_pushnumber(L, ((*phreeqc)->*rate_func)(args...));
+  auto phreeqc_ptr = static_cast<Phreeqc **>(lua_touserdata(L, 1));
+  if (!phreeqc_ptr || !*phreeqc_ptr) {
+    return luaL_error(L, "Invalid call: Phreeqc instance (Pqc) is missing or invalid (use ':' syntax, e.g., Pqc:M())");
+  }
+  lua_pushnumber(L, ((*phreeqc_ptr)->*rate_func)(args...));
   return 1;
 }
 
@@ -24,11 +27,17 @@ static const struct luaL_Reg pqc_func_vec[] = {
     {"SI",
      [](lua_State *L) -> int {
        const char *name = lua_tostring(L, 2);
+       if (!name) {
+         return luaL_error(L, "SI expects a phase name as argument (e.g., Pqc:SI(\"Calcite\"))");
+       }
        return push_phreeqc_data(L, &Phreeqc::get_saturation_index, name);
      }},
     {"ACT",
      [](lua_State *L) -> int {
        const char *name = lua_tostring(L, 2);
+       if (!name) {
+         return luaL_error(L, "ACT expects a species name as argument (e.g., Pqc:ACT(\"Na+\"))");
+       }
        return push_phreeqc_data(L, &Phreeqc::get_activity, name);
      }},
     {"TK",
@@ -38,10 +47,16 @@ static const struct luaL_Reg pqc_func_vec[] = {
     {"SR",
      [](lua_State *L) -> int {
        const char *name = lua_tostring(L, 2);
+       if (!name) {
+         return luaL_error(L, "SR expects a phase name as argument (e.g., Pqc:SR(\"Calcite\"))");
+       }
        return push_phreeqc_data(L, &Phreeqc::get_saturation_ratio, name);
      }},
     {"PARM",
      [](lua_State *L) -> int {
+       if (!lua_isnumber(L, 2)) {
+         return luaL_error(L, "PARM expects an index number as argument (e.g., Pqc:PARM(1))");
+       }
        std::size_t index = lua_tointeger(L, 2);
        return push_phreeqc_data(L, &Phreeqc::get_script_parm, index);
      }},

@@ -20,5 +20,8 @@ double Phreeqc::get_activity(const char *name) { return this->activity(name); }
 double Phreeqc::get_temperature_kelvin() const { return this->tc_x + 273.15; }
 
 double Phreeqc::get_script_parm(std::size_t index) const {
+  if (index == 0 || index > this->rate_p.size()) {
+    return 0.0;
+  }
   return this->rate_p[index - 1];
 }
