@@ -196,3 +196,5 @@
 /out/
 .vshistory
 /.vs/
+
+build/
