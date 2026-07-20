@@ -50,6 +50,7 @@ int LuaCore::parse_chunk(const std::string &script,
   int status = luaL_loadstring(this->L, in_script.c_str());
   if (status != LUA_OK) {
     std::cout << lua_tostring(this->L, -1) << std::endl;
+    lua_pop(this->L, 1);
     return status;
   }
   lua_setglobal(this->L, chunk_name.c_str());
@@ -57,4 +58,8 @@ int LuaCore::parse_chunk(const std::string &script,
   return LUA_OK;
 }
 
-double LuaCore::pop_value() { return lua_tonumber(this->L, -1); }
+double LuaCore::pop_value() {
+  double val = lua_tonumber(this->L, -1);
+  lua_pop(this->L, 1);
+  return val;
+}
